@@ -51,4 +51,5 @@ warnings-ng
 workflow-aggregator
 ws-cleanup
 xunit
-locale:latest
+locale
+security
