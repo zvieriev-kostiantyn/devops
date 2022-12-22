@@ -1,23 +1,32 @@
-import org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval
+package javaposse.jobdsl.plugin
 
-ScriptApproval scriptApproval = ScriptApproval.get()
-scriptApproval.pendingScripts.each {
-    scriptApproval.approveScript(it.hash)
-}
-
-/* Script to clear script approval 
-$JENKINS_HOME/init.groovy.d/disable-script-security.groovy:
-*/
-
-import javaposse.jobdsl.plugin.GlobalJobDslSecurityConfiguration
+import hudson.Extension
 import jenkins.model.GlobalConfiguration
+import jenkins.model.GlobalConfigurationCategory
+import net.sf.json.JSONObject
+import org.kohsuke.stapler.StaplerRequest
 
-// disable Job DSL script approval
-GlobalConfiguration.all().get(GlobalJobDslSecurityConfiguration.class).useScriptSecurity=false
-GlobalConfiguration.all().get(GlobalJobDslSecurityConfiguration.class).save()
+@Extension
+class GlobalJobDslSecurityConfiguration extends GlobalConfiguration {
 
+    GlobalConfigurationCategory getCategory() {
+        GlobalConfigurationCategory.get(GlobalConfigurationCategory.Security)
+    }
+
+    boolean useScriptSecurity = true
+
+    GlobalJobDslSecurityConfiguration() {
+        load()
+    }
+
+    @Override
+    boolean configure(StaplerRequest req, JSONObject json) {
+        useScriptSecurity = json.has('useScriptSecurity')
+        save()
+        true
+    }
+}
 def job_name = 'simple-java-maven-app'
-
 
 pipelineJob(job_name) {
   displayName(job_name)
