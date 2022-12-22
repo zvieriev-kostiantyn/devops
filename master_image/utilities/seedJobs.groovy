@@ -5,7 +5,7 @@ def jobName = 'seedJobs'
 def jobTitle = [folderName, jobName]
 
 freeStyleJob(jobTitle.join('/')) {
-    label('bult-in')
+    label('built-in')
     displayName('Seed Jobs - Global')
     description('Seed jobs available to Jenkins')
     logRotator {
@@ -16,7 +16,7 @@ freeStyleJob(jobTitle.join('/')) {
         hudsonStartupTrigger {
         quietPeriod('5')
         runOnChoice('ON_CONNECT')
-        label('bult-in')
+        label('built-in')
         nodeParameterName('')
         }
     }
@@ -38,7 +38,7 @@ freeStyleJob(jobTitle.join('/')) {
     scm {
         git {
         remote {
-            github('kostya-zvieriev/jenkins', 'https')
+            github('zvieriev-kostiantyn/devops', 'https')
         }
         branches('${BRANCH}')
         }
@@ -46,7 +46,7 @@ freeStyleJob(jobTitle.join('/')) {
     steps {
         action = System.getenv('ENVIRONMENT') == 'test' ? 'IGNORE' : 'DELETE'
         dsl {
-            external('jenkins/jobs/*.groovy', 'jenkins/jobs/*/*.groovy')
+            external('jobs/*.groovy')
             removeAction(action)
             removeViewAction(action)
         }
