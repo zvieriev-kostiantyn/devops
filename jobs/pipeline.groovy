@@ -1,26 +1,37 @@
-def job_name = 'simple-java-maven-app'
+def job_name = 'simple-pipeline'
 
-pipelineJob(job_name) {
+freeStyleJob(jobTitle.join('/')) {
+  label('built-in')
   displayName(job_name)
+  displayName('simple pipeline')
+  description('simple-pipeline using sh')
   logRotator {
     numToKeep(5)
+    artifactNumToKeep(1)
   }
-    parameters{
-      gitParameter{
-        name('GIT_BRANCH')
-        defaultValue('master')
-        description('Branch or tag to use for jobs')
-        type('PT_BRANCH_TAG')
-        branch('')
-        branchFilter('origin/(.*)')
-        tagFilter('*')
-        sortMode('DESCENDING_SMART')
-        selectedValue('NONE')
-        useRepository('')
-        quickFilterEnabled(true)
-      }
-      booleanParam('FAIL_ON_XRAY', true, 'Fail the build if xray scan returns violations')
+  triggers {
+      hudsonStartupTrigger {
+      quietPeriod('5')
+      runOnChoice('ON_CONNECT')
+      label('built-in')
+      nodeParameterName('')
     }
+  }
+  parameters {
+    gitParameter {
+      name('BRANCH')
+      defaultValue('master')
+      description('Branch or tag to use for seedJobs')
+      type(gitType)
+      branch('')
+      branchFilter('origin/(.)')
+      tagFilter('')
+      sortMode('DESCENDING_SMART')
+      selectedValue('NONE')
+      useRepository('')
+      quickFilterEnabled(true)
+    }
+  }
   definition {
     cpsScm {
       scm {
@@ -28,7 +39,7 @@ pipelineJob(job_name) {
           remote {
             github('zvieriev-kostiantyn/devops-semple')
           }
-          branches('${GIT_BRANCH}')
+          branches('${BRANCH}')
         }
       }
       scriptPath('Jenkinsfile')

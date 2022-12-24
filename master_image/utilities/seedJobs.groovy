@@ -22,25 +22,25 @@ freeStyleJob(jobTitle.join('/')) {
     }
     parameters {
         gitParameter {
-        name('BRANCH')
-        defaultValue('master')
-        description('Branch or tag to use for seedJobs')
-        type(gitType)
-        branch('')
-        branchFilter('origin/(.)')
-        tagFilter('')
-        sortMode('DESCENDING_SMART')
-        selectedValue('NONE')
-        useRepository('')
-        quickFilterEnabled(true)
+            name('BRANCH')
+            defaultValue('master')
+            description('Branch or tag to use for seedJobs')
+            type(gitType)
+            branch('')
+            branchFilter('origin/(.)')
+            tagFilter('')
+            sortMode('DESCENDING_SMART')
+            selectedValue('NONE')
+            useRepository('')
+            quickFilterEnabled(true)
         }
     }
     scm {
         git {
-        remote {
-            github('zvieriev-kostiantyn/devops', 'https')
-        }
-        branches('${BRANCH}')
+            remote {
+                github('zvieriev-kostiantyn/devops', 'https')
+            }
+            branches('${BRANCH}')
         }
     }
     steps {
