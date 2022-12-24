@@ -26,12 +26,12 @@ pipelineJob(job_name) {
       scm {
         git {
           remote {
-            github('jenkins-docs/simple-java-maven-app')
+            github('zvieriev-kostiantyn/devops-semple')
           }
           branches('${GIT_BRANCH}')
         }
       }
-      scriptPath('jenkins/Jenkinsfile')
+      scriptPath('Jenkinsfile')
       lightweight(false)
     }
   }
