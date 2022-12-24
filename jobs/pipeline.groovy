@@ -13,7 +13,7 @@ pipelineJob(job_name) {
         type('PT_BRANCH_TAG')
         branch('')
         branchFilter('origin/(.)')
-        tagFilter('*')
+        tagFilter('')
         sortMode('DESCENDING_SMART')
         selectedValue('NONE')
         useRepository('')
