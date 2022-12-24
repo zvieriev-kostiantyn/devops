@@ -1,9 +1,8 @@
-def job_name = 'simple-pipeline'
+def job_name = 'simple-java-maven-app'
 
-freeStyleJob(jobTitle.join('/')) {
+pipelineJob(job_name) {
   label('built-in')
   displayName(job_name)
-  displayName('simple pipeline')
   description('simple-pipeline using sh')
   logRotator {
     numToKeep(5)
