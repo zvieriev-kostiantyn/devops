@@ -10,7 +10,7 @@ pipelineJob(job_name) {
         name('GIT_BRANCH')
         defaultValue('master')
         description('Branch or tag to use for jobs')
-        type(gitType)
+        type('PT_BRANCH_TAG')
         branch('')
         branchFilter('origin/(.)')
         tagFilter('*')
