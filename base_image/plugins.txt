@@ -1,4 +1,12 @@
-ansicolor
+configuration-as-code
+git
+git-client
+git-parameter
+github
+github-api
+github-branch-source
+job-dsl
+locale
 antisamy-markup-formatter
 artifactory
 blueocean
@@ -52,4 +60,5 @@ workflow-aggregator
 ws-cleanup
 xunit
 locale
-security
+docker-commons
+docker-workflow
