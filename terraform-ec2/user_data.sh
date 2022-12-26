@@ -7,5 +7,5 @@ newgrp docker
 systemctl enable docker.service
 systemctl start docker.service
 
-#docker run --name jenkins -p 80:8080 -d -v /your/home:/var/jenkins_home jenkins/jenkins
-#docker exec <container> cat /var/jenkins_home/secrets/initialAdminPassword
+docker pull zvierievkostiantyn/master-jenkins:latest
+docker run --name jenkins --rm -dp 80:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password zvierievkostiantyn/master-jenkins:latest
